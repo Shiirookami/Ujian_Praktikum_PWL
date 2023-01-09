@@ -1,69 +1,90 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-        <!-- Bootstrap CSS -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
+@section('content')
+    <div class="main-content">
+    <div class="title">
+        Dashboard
+    </div>
+    <div class="content-wrapper">
+        <div class="row same-height">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Responsive</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="form-text mb-2">Datatables also provide responsive table</p>
+                        <a href="{{route('produk.create')}}" class="btn btn-primary mb-2">Tambah</a>
+                        <table id="example2" class="table display">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Gambar</th>
+                                    <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($items as $item => $produk)
+                                <tr>
+                                    <th scope="row">{{$item+1}}</th>
+                                    <td>{{$produk->nama}}</td>
+                                    <td>{{$produk->qty}}</td>
+                                    <td>{{$produk->price}}</td>
+                                    <td>{{$produk->image}}</td>
+                                    <td>
+                                    <form action="{{route('produk.destroy',$produk->id)}}" method="post">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <a href="{{route('produk.index')}}">Detail</a>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <a href="{{route('produk.edit',$produk->id)}}">Edit</a>
+                                        </button>
+                                        @csrf
+                                        @method('delete')
+                                            <button type="submit" class="btn btn-outline-success">delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Gambar</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <title>Hello, world!</title>
-    </head>
-    <body>
-            <a href="{{route('produk.create')}}" class="btn btn-primary mb-2">Tambah</a>
-            <table class="table" bordered="10">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">nama</th>
-                        <th scope="col">qty</th>
-                        <th scope="col">price</th>
-                        <th scope="col">gambar</th>
-                        <th scope="col">action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($items as $item => $produk)
-                    <tr>
-                        <th scope="row">{{$item+1}}</th>
-                        <td>{{$produk->nama}}</td>
-                        <td>{{$produk->qty}}</td>
-                        <td>{{$produk->price}}</td>
-                        <td>{{$produk->image}}</td>
-                        <td>
-                        <form action="{{route('produk.destroy',$produk->id)}}" method="post">
-                            <a href="product.detail">
-                                <button class="btn btn-outline-primary">detail</button>
-                            </a>
-                                <button type="button" value="" class="btn btn-outline-secondary">
-                                    <a href="{{route('produk.edit',$produk->id)}}">Edit</a>
-                                </button>
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-outline-success">delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+</div>
+@endsection
 
-                </tbody>
-            </table>
-    </body>
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
-</html>
+@push('js')
+    <script src="{{asset('')}}admin/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{{asset('')}}admin/assets/js/page/index.js"></script>
+@endpush
+@push('datatables')
+    <link href="{{asset('')}}admin/vendor/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="{{asset('')}}admin/vendor/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet" />
+@endpush
+@push('js_datatables')
+    <script src="{{asset('')}}admin/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('')}}admin/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('')}}admin/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{asset('')}}admin/assets/js/page/datatables.js"></script>
+@endpush
+@push('css')
+    <link rel="stylesheet" href="{{asset('')}}admin/vendor/chart.js/dist/Chart.min.css">
+@endpush
