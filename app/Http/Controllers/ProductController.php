@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdukRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -40,6 +41,7 @@ class ProductController extends Controller
     {
         $data = $request->all();
         Product::create($data);
+        Session::flash('status','data berhasil ditambahkan');
         return redirect()->route('produk.index');
     }
 
@@ -78,6 +80,7 @@ class ProductController extends Controller
         $data = $request->all();
         $edit = Product::findOrFail($id);
         $edit ->update($data);
+        Session::flash('status','Data berhasil diubah');
         return redirect()->route('produk.index');
     }
 
@@ -91,6 +94,7 @@ class ProductController extends Controller
     {
         $prod = Product::findOrFail($id);
         $prod -> delete();
+        Session::flash('hapus','berhasil menghapus data');
         return redirect()->route('produk.index');
     }
 }

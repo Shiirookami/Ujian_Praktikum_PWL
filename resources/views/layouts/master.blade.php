@@ -54,6 +54,27 @@
     <script>
         Main.init()
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('status'))
+            // <div class="alert alert-success">{{ session('status') }}</div>
+            Swal.fire({
+                title: 'selamat!',
+                text: "{{ session('status') }}",
+                icon: 'Success',
+                timer: 3000
+            })
+        @endif
+        @if (session('hapus'))
+            // <div class="alert alert-success">{{ session('status') }}</div>
+            Swal.fire({
+                title: 'Data Recovery!',
+                text: "{{ session('hapus') }}",
+                icon: 'danger',
+                timer: 4000
+            })
+        @endif
+    </script>
 </body>
 
 </html>
