@@ -52,11 +52,9 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Image</label>
-                                <input
-                                    type="text"
-                                    placeholder="Input Here"
-                                    class="form-control"
-                                    name="image">
+                                @foreach ($gambar as $item)
+                                    <option value="{{$item->id}}">{{$item->image}}</option>
+                                @endforeach
                             </div>
                         </div>
                     </div>

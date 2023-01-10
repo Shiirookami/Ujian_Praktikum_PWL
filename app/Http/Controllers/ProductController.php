@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GambarRequest;
 use App\Http\Requests\ProdukRequest;
+use App\Models\ImageIdea;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -16,6 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $data['gambar'] = ImageIdea::where('id','$image');
         $data['items'] = Product::all();
         return view('produk.index')->with($data);
     }
@@ -27,6 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $data['gambar'] = ImageIdea::where('id','$image');
         $data['items'] = Product::all();
         return view('produk.create')->with($data);
     }
@@ -37,8 +41,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProdukRequest $request)
+    public function store(ProdukRequest $request,GambarRequest $image)
     {
+        $data = $image->all();
         $data = $request->all();
         Product::create($data);
         Session::flash('status','data berhasil ditambahkan');

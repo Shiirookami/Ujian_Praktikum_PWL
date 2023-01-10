@@ -33,7 +33,15 @@
                                     <td>{{$produk->nama}}</td>
                                     <td>{{$produk->qty}}</td>
                                     <td>{{$produk->price}}</td>
-                                    <td>{{$produk->image}}</td>
+                                    <td>
+                                        @foreach($gambar as $image)
+                                        <td>{{$image->id}}</td>
+                                            <td> <?php foreach (json_decode($image->gambar)as $img) { ?>
+                                                  <img src="{{ asset('/admin/'.$img) }}" style="height:120px; width:200px"/>
+                                                 <?php } ?>
+                                            </td>
+                                         @endforeach
+                                    </td>
                                     <td>
                                     <form action="{{route('produk.destroy',$produk->id)}}" method="post">
                                         <button type="button" class="btn btn-outline-secondary">
