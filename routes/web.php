@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\GuruController;
+use App\Http\Controllers\User\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +18,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+Auth::routes();
+Route::group([
+    'middleware' => 'auth'
+],function(){
+    Route::group([
+        'middleware' => 'role:superadmin',
+        'prefix'=>'superadmin',
+        'as' => 'superadmin.'
+    ],function(){
+        Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
+        Route::resource('guru',GuruController::class);
+    });
+    Route::group([
+        'middleware' => 'role:admin',
+        'prefix'=>'admin_user',
+        'as' => 'admin_user.'
+    ],function(){
+        Route::get('/',[DashboardAdminController::class, 'index'])->name('dashboard.index');
+    });
+    Route::group([
+        'middleware' => 'role:user',
+        'prefix'=>'user_pengguna',
+        'as' => 'user_pengguna.'
+    ],function(){
+        Route::get('/',[UserDashboardController::class, 'index'])->name('dashboard.index');
+    });
 });
-Route::resource('/produk',ProductController::class);
+
+

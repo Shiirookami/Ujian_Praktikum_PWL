@@ -17,33 +17,33 @@
     </div>
     <div class="sidebar-content">
         <ul>
-            <li class="active">
-                <a href="index.html" class="link">
+            <li class="">
+                <a href="" class="link">
                     <i class="ti-home"></i>
-                    <span>Dashboard</span>
+                    <span>dashboard</span>
                 </a>
             </li>
-            <li>
+            <li class="">
                 <a href="#" class="main-menu has-dropdown">
                     <i class="ti-desktop"></i>
-                    <span>Produk</span>
+                    <span>Murid</span>
                 </a>
                 <ul class="sub-menu ">
-                    <li><a href="{{route('produk.index')}}" class="link"><span>Data</span></a></li>
+                    <li><a href="" class="link"><span>Data Murid</span></a></li>
                     <li><a href="produk/trash" class="link"><span>trash</span></a></li>
                 </ul>
             </li>
-            <li>
+            <li class="">
                 <a href="#" class="main-menu has-dropdown">
                     <i class="ti-book"></i>
-                    <span>Supplier</span>
+                    <span>Post</span>
                 </a>
                 <ul class="sub-menu ">
                     <li><a href="form-element.html" class="link">
-                            <span>Data</span></a>
+                            <span>Tambah Post</span></a>
                     </li>
                     <li><a href="form-datepicker.html" class="link">
-                            <span>jumlah</span></a>
+                            <span>jumlah Post yang ada</span></a>
                     </li>
                     <li><a href="form-select2.html" class="link">
                             <span>trash</span></a>

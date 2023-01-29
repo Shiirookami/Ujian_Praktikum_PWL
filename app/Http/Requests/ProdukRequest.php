@@ -24,10 +24,9 @@ class ProdukRequest extends FormRequest
     public function rules()
     {
         return [
+            'nidn' => 'required',
             'nama' => 'required',
-            'qty' => 'required',
-            'price' => 'required',
-            'image' => 'required',
+            'alamat' => 'required'
         ];
     }
 }
